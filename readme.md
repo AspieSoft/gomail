@@ -8,7 +8,7 @@ Simplifies Sending Emails In Go.
 
 ```shell script
 
-  go get github.com/AspieSoft/go-regex
+  go get github.com/AspieSoft/gomail
 
 ```
 
