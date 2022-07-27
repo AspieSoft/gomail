@@ -1,4 +1,4 @@
-module gomail
+module github.com/AspieSoft/gomail
 
 go 1.18
 
