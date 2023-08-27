@@ -38,12 +38,12 @@ func TestMail(t *testing.T) {
 		t.Error("mailer", err)
 	}
 
-	err = mailer.send([]string{emailAuth["to"]}, "Test", "<h3>This Is A Test</h3>")
+	err = mailer.Send([]string{emailAuth["to"]}, "Test", "<h3>This Is A Test</h3>")
 	if err != nil {
 		t.Error("send", err)
 	}
 
-	err = mailer.sendFrom(emailAuth["from"], []string{emailAuth["to"]}, "Test", "<h3>This Is A Test</h3>")
+	err = mailer.SendFrom(emailAuth["from"], []string{emailAuth["to"]}, "Test", "<h3>This Is A Test</h3>")
 	if err != nil {
 		t.Error("send", err)
 	}

@@ -47,8 +47,8 @@ var HOST Host = Host{
 }
 
 type Mailer struct {
-	send func(to []string, subject string, body string, mime ...string) error
-	sendFrom func(from string, to []string, subject string, body string, mime ...string) error
+	Send func(to []string, subject string, body string, mime ...string) error
+	SendFrom func(from string, to []string, subject string, body string, mime ...string) error
 }
 
 var bytes = []byte{35, 46, 57, 24, 85, 35, 24, 74, 87, 35, 88, 98, 66, 32, 14, 05}
@@ -85,7 +85,7 @@ func NewMailer(email string, pwd string, host MailHost, fromEmail ...string) (Ma
 		if len(mime) != 0 {
 			mimeType = mime[0]
 		}
-		return SendEmail(auth, fromDef, to, subject, body, mimeType)
+		return sendEmail(auth, fromDef, to, subject, body, mimeType)
 	}
 
 	sendFrom := func(from string, to []string, subject string, body string, mime ...string) error {
@@ -93,13 +93,13 @@ func NewMailer(email string, pwd string, host MailHost, fromEmail ...string) (Ma
 		if len(mime) != 0 {
 			mimeType = mime[0]
 		}
-		return SendEmail(auth, from, to, subject, body, mimeType)
+		return sendEmail(auth, from, to, subject, body, mimeType)
 	}
 
 	return Mailer{send, sendFrom}, nil
 }
 
-func SendEmail(authData map[string]string, fromName string, to []string, subject string, body string, mime string) error {
+func sendEmail(authData map[string]string, fromName string, to []string, subject string, body string, mime string) error {
 	// sender data
 	pwd, err := decrypt(authData["pwd"], encKey)
 	if err != nil {
