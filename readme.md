@@ -17,7 +17,7 @@ Simplifies Sending Emails In Go.
 ```go
 
 import (
-  "github.com/AspieSoft/gomail/"
+  "github.com/AspieSoft/gomail"
 )
 
 // creating an authenticated mailer

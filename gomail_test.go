@@ -33,7 +33,7 @@ func getEmailAuth(){
 func TestMail(t *testing.T) {
 	getEmailAuth()
 
-	mailer, err := NewMailer(emailAuth["email"], emailAuth["pwd"], HOST.gmail)
+	mailer, err := NewMailer(emailAuth["email"], emailAuth["pwd"], HOST.Gmail)
 	if err != nil {
 		t.Error("mailer", err)
 	}

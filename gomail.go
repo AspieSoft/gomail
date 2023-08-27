@@ -10,27 +10,27 @@ import (
 )
 
 type mime struct {
-	text string
-	html string
-	png string
-	jpeg string
-	jpg string
-	mp4 string
-	mp3 string
-	json string
-	msword string
+	Text string
+	Html string
+	Png string
+	Jpeg string
+	Jpg string
+	Mp4 string
+	Mp3 string
+	Json string
+	Msword string
 }
 
 var MIME mime = mime{
-	text: "MIME-version: 1.0;\nContent-Type: text/plain; charset=\"UTF-8\";",
-	html: "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";",
-	png: "MIME-version: 1.0;\nContent-Type: image/png; charset=\"UTF-8\";",
-	jpeg: "MIME-version: 1.0;\nContent-Type: image/jpeg; charset=\"UTF-8\";",
-	jpg: "MIME-version: 1.0;\nContent-Type: image/jpg; charset=\"UTF-8\";",
-	mp4: "MIME-version: 1.0;\nContent-Type: video/mp4; charset=\"UTF-8\";",
-	mp3: "MIME-version: 1.0;\nContent-Type: audio/mp3; charset=\"UTF-8\";",
-	json: "MIME-version: 1.0;\nContent-Type: application/json; charset=\"UTF-8\";",
-	msword: "MIME-version: 1.0;\nContent-Type: application/msword; charset=\"UTF-8\";",
+	Text: "MIME-version: 1.0;\nContent-Type: text/plain; charset=\"UTF-8\";",
+	Html: "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";",
+	Png: "MIME-version: 1.0;\nContent-Type: image/png; charset=\"UTF-8\";",
+	Jpeg: "MIME-version: 1.0;\nContent-Type: image/jpeg; charset=\"UTF-8\";",
+	Jpg: "MIME-version: 1.0;\nContent-Type: image/jpg; charset=\"UTF-8\";",
+	Mp4: "MIME-version: 1.0;\nContent-Type: video/mp4; charset=\"UTF-8\";",
+	Mp3: "MIME-version: 1.0;\nContent-Type: audio/mp3; charset=\"UTF-8\";",
+	Json: "MIME-version: 1.0;\nContent-Type: application/json; charset=\"UTF-8\";",
+	Msword: "MIME-version: 1.0;\nContent-Type: application/msword; charset=\"UTF-8\";",
 }
 
 type MailHost struct {
@@ -39,11 +39,11 @@ type MailHost struct {
 }
 
 type Host struct {
-	gmail MailHost
+	Gmail MailHost
 }
 
 var HOST Host = Host{
-	gmail: MailHost{host: "smtp.gmail.com", port: "587"},
+	Gmail: MailHost{host: "smtp.gmail.com", port: "587"},
 }
 
 type Mailer struct {
@@ -81,25 +81,25 @@ func NewMailer(email string, pwd string, host MailHost, fromEmail ...string) (Ma
 	}
 
 	send := func(to []string, subject string, body string, mime ...string) error {
-		mimeType := MIME.html
+		mimeType := MIME.Html
 		if len(mime) != 0 {
 			mimeType = mime[0]
 		}
-		return sendEmail(auth, fromDef, to, subject, body, mimeType)
+		return SendEmail(auth, fromDef, to, subject, body, mimeType)
 	}
 
 	sendFrom := func(from string, to []string, subject string, body string, mime ...string) error {
-		mimeType := MIME.html
+		mimeType := MIME.Html
 		if len(mime) != 0 {
 			mimeType = mime[0]
 		}
-		return sendEmail(auth, from, to, subject, body, mimeType)
+		return SendEmail(auth, from, to, subject, body, mimeType)
 	}
 
 	return Mailer{send, sendFrom}, nil
 }
 
-func sendEmail(authData map[string]string, fromName string, to []string, subject string, body string, mime string) error {
+func SendEmail(authData map[string]string, fromName string, to []string, subject string, body string, mime string) error {
 	// sender data
 	pwd, err := decrypt(authData["pwd"], encKey)
 	if err != nil {
